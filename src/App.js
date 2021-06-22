@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import React, { useState, Fragment } from 'react';
 import './App.css';
 
-function App() {
+import countries from './data/countries.json';
+import Header from './components/Header';
+import Countries from './components/Countries';
+
+const App = () => {
+  const [data] = useState(countries);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Header title="ReactJS pagination using custom hook" />
+      <div className="container px-2">
+        <Countries 
+          data={data} 
+          itemsPerPage={10} 
+          searchByData={[
+            { label: 'Search by country', value: 'name' },
+            { label: 'Search by capital', value: 'capital' },
+            { label: 'Search by country code', value: 'iso2' },
+            { label: 'Search by currency', value: 'currency' },
+            { label: 'Search by phone code', value: 'phone_code' }
+          ]} 
+        />
+        <Countries data={data} itemsPerPage={5} startFrom={15} />
+      </div>
+    </Fragment>
   );
 }
 
